@@ -26,7 +26,7 @@ resource "tls_self_signed_cert" "ca_cert" {
   is_ca_certificate = true
 
   subject {
-    common_name         = "ca.vpn.com"
+    common_name = "ca.vpn.com"
   }
 
   validity_period_hours = 43800 //  1825 days or 5 years
@@ -41,7 +41,7 @@ resource "tls_cert_request" "server_csr" {
   private_key_pem = tls_private_key.server_key.private_key_pem
   dns_names = ["server.vpn.com"]
   subject {
-    common_name         = "server.vpn.com"
+    common_name = "server.vpn.com"
   }
 }
 
@@ -49,7 +49,7 @@ resource "tls_cert_request" "client_csr" {
   private_key_pem = tls_private_key.client_key.private_key_pem
   dns_names = ["client.vpn.com"]
   subject {
-    common_name         = "client.vpn.com"
+    common_name = "client.vpn.com"
   }
 }
 

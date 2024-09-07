@@ -26,6 +26,7 @@ resource "google_compute_instance" "vpn_server" {
 
   metadata = {
     enable-oslogin: "false"
+    startup-script: data.template_file.startup_script_config.rendered
   }
 
   service_account {
@@ -33,5 +34,5 @@ resource "google_compute_instance" "vpn_server" {
     scopes = ["cloud-platform"]
   }  
 
-  metadata_startup_script = data.template_file.startup_script_config.rendered
+  # metadata_startup_script = data.template_file.startup_script_config.rendered
 }

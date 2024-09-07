@@ -7,10 +7,10 @@ env DEBIAN_FRONTEND=noninteractive \
             --force-yes \
             strongswan \
             libcharon-extra-plugins \
-            iptables-persistent
+#            iptables-persistent
 
 gsutil cp ${bucket}/ipsec.conf /etc/ipsec.conf
-gsutil cp ${bucket}/rules.v4 /etc/iptables/rules.v4
+#gsutil cp ${bucket}/rules.v4 /etc/iptables/rules.v4
 gsutil cp ${bucket}/ca.crt /etc/ipsec.d/cacerts/ca.crt
 gsutil cp ${bucket}/server.crt /etc/ipsec.d/certs/server.crt
 gsutil cp ${bucket}/ca.key /etc/ipsec.d/private/ca.key
@@ -29,7 +29,7 @@ EOF
 
 sysctl -p
 
-iptables-restore < /etc/iptables/rules.v4
+#iptables-restore < /etc/iptables/rules.v4
 
 systemctl enable strongswan-starter.service
 systemctl restart strongswan-starter.service

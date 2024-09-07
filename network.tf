@@ -15,3 +15,24 @@ resource "google_compute_firewall" "vpn" {
   }
   source_ranges = var.allowed_ips
 }
+
+resource "google_compute_firewall" "vpn_egress" {
+  project = var.project_id
+  name    = "vpn-server-egress"
+  network =  var.vpc.self_link
+  allow {
+    protocol = "all"
+  }
+  source_tags = ["vpn"]
+  priority = 999
+  destination_ranges = split(",", var.vpc_cidr)
+  
+}
+
+resource "google_compute_route" "vpn" {
+  name         = "vpn-server-route"
+  dest_range   = var.vpn_cidr
+  network      = var.vpc.self_link
+  next_hop_instance = google_compute_instance.vpn_server.id
+  priority     = 999
+}
